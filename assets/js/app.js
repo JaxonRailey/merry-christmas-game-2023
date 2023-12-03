@@ -59,7 +59,6 @@ $all('.intro span').forEach(smile => {
         lightsElems   = $all('.lights > div');
 
         startGame();
-        console.log(checkSolution(switchMap));
     });
 });
 
@@ -89,7 +88,6 @@ function generateSwitchMap() {
         }
 
         if (checkSolution(currentSwitchMap)) {
-            console.log('Soluzione valida trovata in', attempts, 'tentativi');
             return currentSwitchMap.map(pair => pair.sort((a, b) => a - b));
         }
     }
@@ -129,7 +127,6 @@ function checkSolution(switchMap) {
 function startGame() {
 
     switchMap = generateSwitchMap();
-    console.table(switchMap);
 
     switchesElems.forEach((elem, index) => {
         elem.addEventListener('click', () => {
@@ -154,14 +151,12 @@ function startGame() {
                 winner = true;
                 winnerSound.play();
                 $one('.blank').classList.add('active');
-                console.log('Hai vinto usando '+ clicks + ' mosse!');
+                console.warn('Hai vinto usando', clicks, 'mosse!');
                 $one('.blank.active:not(.fade)').addEventListener('animationend', () => {
-                    console.log('animazione finita');
-                    $one('.game h1').remove();
+                    $one('.game h1').innerHTML = '';
                     $one('.game .container').innerHTML = '';
                     $one('svg').style.display = 'block';
-                    $one('.blank').classList.remove('active');
-                    $one('.blank').classList.add('fade');
+                    $one('.blank').classList  = 'blank fade';
                     wishSound.play();
                     christmas.play();
                 });
