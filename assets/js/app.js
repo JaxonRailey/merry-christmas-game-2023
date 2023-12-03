@@ -63,28 +63,18 @@ $all('.intro span').forEach(smile => {
     });
 });
 
-// Funzione per mescolare casualmente un array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-// Funzione per generare switchMap con requisiti specifici
 function generateSwitchMap() {
-    let currentSwitchMap;
-    let attempts = 0;
-    const maxAttempts = 1000; // Numero massimo di tentativi prima di arrendersi
+
+    const maxAttempts = 100;
+    let attempts      = 0;
 
     while (attempts < maxAttempts) {
+
         attempts++;
 
         const allPairs = controls === 2 ? generatePair() : generateTriple();
-        shuffleArray(allPairs);
 
-        currentSwitchMap = Array.from({ length: switchesElems.length }, (_, index) => []);
-
+        let currentSwitchMap  = Array.from({ length: switchesElems.length }, (_, index) => []);
         const allLightIndices = Array.from({ length: lightsElems.length }, (_, index) => index);
 
         for (let i = 0; i < currentSwitchMap.length; i++) {
@@ -98,15 +88,13 @@ function generateSwitchMap() {
             });
         }
 
-        // Verifica se la soluzione è valida
         if (checkSolution(currentSwitchMap)) {
             console.log('Soluzione valida trovata in', attempts, 'tentativi');
             return currentSwitchMap.map(pair => pair.sort((a, b) => a - b));
         }
     }
 
-    console.log('Nessuna soluzione valida trovata in', maxAttempts, 'tentativi. Rieseguire la generazione.');
-    return generateSwitchMap(); // Riesegui la generazione se non viene trovata una soluzione valida
+    location.href = '/';
 }
 
 function checkSolution(switchMap) {
@@ -139,6 +127,7 @@ function checkSolution(switchMap) {
 }
 
 function startGame() {
+
     switchMap = generateSwitchMap();
     console.table(switchMap);
 
@@ -173,19 +162,14 @@ function startGame() {
                     $one('.blank').classList.remove('active');
                     $one('.blank').classList.add('fade');
                     wishSound.play();
-                    // christmas.setSpeed(0.40);
                     christmas.play();
                 });
-
-            } else {
-                console.log('Non tutte le lampadine sono accese. Riprova!');
             }
         });
     });
 
     updateUI();
 }
-
 
 function updateUI() {
 
