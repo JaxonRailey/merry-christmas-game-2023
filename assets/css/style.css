@@ -146,7 +146,11 @@ svg {
     font-weight: 300;
 }
 
-.intro > span {
+.intro .preloading span:first-child {
+    background-image: url('../img/switch_on.png');
+}
+
+.intro .preloading span:last-child {
     background-image: url('../img/light_on.png');
 }
 
