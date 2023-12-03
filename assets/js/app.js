@@ -40,7 +40,7 @@ if (user) {
 
 // close intro
 $all('.intro span').forEach(smile => {
-    smile.addEventListener('click', (e) => {
+    smile.addEventListener('click', () => {
         $one('.intro').classList.add('active');
 
         level = smile.classList[0];
@@ -59,7 +59,7 @@ $all('.intro span').forEach(smile => {
         lightsElems   = $all('.lights > div');
 
         startGame();
-        findSolution();
+        console.log(checkSolution(switchMap));
     });
 });
 
@@ -80,47 +80,28 @@ function generateSwitchMap() {
     while (attempts < maxAttempts) {
         attempts++;
 
-        const allTriplets = controls == 2 ? generatePair() : generateTriple();
-        shuffleArray(allTriplets);
+        const allPairs = controls === 2 ? generatePair() : generateTriple();
+        shuffleArray(allPairs);
 
-        currentSwitchMap = Array.from({
-            length: switchesElems.length
-        }, (_, index) => []);
+        currentSwitchMap = Array.from({ length: switchesElems.length }, (_, index) => []);
 
-        // Assicura che ogni indice delle lampadine sia presente almeno una volta
-        const allLightIndices = Array.from({
-            length: lightsElems.length
-        }, (_, index) => index);
-        const remainingTriplets = [...allTriplets];
+        const allLightIndices = Array.from({ length: lightsElems.length }, (_, index) => index);
 
-        while (allLightIndices.length > 0 && remainingTriplets.length > 0) {
-            for (let i = 0; i < currentSwitchMap.length; i++) {
-                const currentTriplet = remainingTriplets.pop();
-                currentSwitchMap[i].push(...currentTriplet);
-                currentTriplet.forEach(lightIndex => {
-                    const indexToRemove = allLightIndices.indexOf(lightIndex);
-                    if (indexToRemove !== -1) {
-                        allLightIndices.splice(indexToRemove, 1);
-                    }
-                });
-            }
-        }
-
-        // Se ci sono ancora indici delle lampadine rimanenti, sostituisci casualmente negli switchMap
-        while (allLightIndices.length > 0) {
-            const randomIndex = Math.floor(Math.random() * currentSwitchMap.length);
-            const targetTriplet = currentSwitchMap[randomIndex];
-            const randomLightIndex = allLightIndices.pop();
-            const duplicateIndices = targetTriplet.filter(lightIndex => allLightIndices.includes(lightIndex));
-            const indexToReplace = duplicateIndices.length > 0 ? duplicateIndices[0] : targetTriplet[0];
-            const replaceIndex = targetTriplet.indexOf(indexToReplace);
-            targetTriplet[replaceIndex] = randomLightIndex;
+        for (let i = 0; i < currentSwitchMap.length; i++) {
+            const currentPair = allPairs.pop();
+            currentSwitchMap[i].push(...currentPair);
+            currentPair.forEach(lightIndex => {
+                const indexToRemove = allLightIndices.indexOf(lightIndex);
+                if (indexToRemove !== -1) {
+                    allLightIndices.splice(indexToRemove, 1);
+                }
+            });
         }
 
         // Verifica se la soluzione è valida
         if (checkSolution(currentSwitchMap)) {
             console.log('Soluzione valida trovata in', attempts, 'tentativi');
-            return currentSwitchMap.map(triplet => triplet.sort((a, b) => a - b));
+            return currentSwitchMap.map(pair => pair.sort((a, b) => a - b));
         }
     }
 
@@ -129,28 +110,32 @@ function generateSwitchMap() {
 }
 
 function checkSolution(switchMap) {
-    const totalSwitches = switchMap.length;
-    for (let i = 0; i < 2 ** totalSwitches; i++) {
-        const binaryString = i.toString(2).padStart(totalSwitches, '0').split('').reverse();
+
+    const combinations = 2 ** switchMap.length;
+
+    for (let i = 0; i < combinations; i++) {
+        const binaryString    = i.toString(2).split('').reverse();
         const currentSwitches = binaryString.map(char => char === '1');
+        let currentLights     = new Array(lightsElems.length).fill(false);
 
-        let currentLights = new Array(lightsElems.length).fill(false);
-
-        for (let j = 0; j < totalSwitches; j++) {
+        for (let j = 0; j < switchMap.length; j++) {
             if (currentSwitches[j]) {
-                const associatedLights = switchMap[j];
-                associatedLights.forEach(lightIndex => {
+                switchMap[j].forEach(lightIndex => {
                     currentLights[lightIndex] = !currentLights[lightIndex];
                 });
             }
         }
 
         if (currentLights.every(light => light)) {
-            return true; // La soluzione è valida
+            if (currentSwitches.length < switchMap.length) {
+                return [...currentSwitches, ...new Array(switchMap.length - currentSwitches.length).fill(false)];
+            }
+
+            return currentSwitches;
         }
     }
 
-    return false; // Nessuna soluzione valida trovata
+    return false;
 }
 
 function startGame() {
@@ -188,7 +173,7 @@ function startGame() {
                     $one('.blank').classList.remove('active');
                     $one('.blank').classList.add('fade');
                     wishSound.play();
-                    christmas.setSpeed(0.40);
+                    // christmas.setSpeed(0.40);
                     christmas.play();
                 });
 
@@ -203,6 +188,7 @@ function startGame() {
 
 
 function updateUI() {
+
     switchesElems.forEach((switchElement, index) => {
         const lightElement = lightsElems[index];
 
@@ -212,32 +198,4 @@ function updateUI() {
         lightElement.classList.toggle('on', lights[index]);
         lightElement.classList.toggle('off', !lights[index]);
     });
-}
-
-function findSolution() {
-    const totalSwitches = switchesElems.length;
-
-    for (let i = 0; i < 2 ** totalSwitches; i++) {
-        const binaryString = i.toString(2).padStart(totalSwitches, '0').split('').reverse();
-        const currentSwitches = binaryString.map(char => char === '1');
-
-        let currentLights = new Array(lightsElems.length).fill(false);
-
-        for (let j = 0; j < totalSwitches; j++) {
-            if (currentSwitches[j]) {
-                const associatedLights = switchMap[j];
-                associatedLights.forEach(lightIndex => {
-                    currentLights[lightIndex] = !currentLights[lightIndex];
-                });
-            }
-        }
-
-        if (currentLights.every(light => light)) {
-            console.log('Soluzione trovata:', currentSwitches);
-            return currentSwitches;
-        }
-    }
-
-    console.log('Nessuna soluzione trovata.');
-    return null;
 }
