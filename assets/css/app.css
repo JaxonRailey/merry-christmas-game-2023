@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playpen+Sans:wght@100;200;300;400;500;600;700;800&display=swap');
+
+/* @font-face {
+    font-family: 'Doppio One Local';
+    src: url('../font/DoppioOne.ttf');
+}
+
+@font-face {
+    font-family: 'Nanum Pen Script Local';
+    src: url('../font/NanumPenScript.ttf');
+} */
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    width: 100vw;
+    font-family: 'Indie Flower', cursive;
+    font-family: 'Playpen Sans', cursive;
+    /* font-family: 'Doppio One', 'Doppio One Local'; */
+    /* background-image: url('../img/background.jpg');
+    background-size: cover;
+    overflow-x: hidden; */
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game > h1 {
+    display: none;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.switches {
+    order: 1;
+}
+
+.switches,
+.lights {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.switches > div,
+.lights > div {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.switches > div.off {
+    background-image: url('../img/switch_off.png');
+}
+
+.switches > div.on {
+    background-image: url('../img/switch_on.png');
+}
+
+.lights > div.off {
+    background-image: url('../img/light_off.png');
+}
+
+.lights > div.on {
+    background-image: url('../img/light_on.png');
+    position: relative;
+}
+
+.lights > div.on::after {
+    box-shadow: 0 0 36px 24px rgba(255, 255, 0, 0.7);
+    position: absolute;
+    width: 0;
+    height: 0;
+    content: "";
+    top: 20px;
+    left: 24px;
+    border-radius: 100%;
+    z-index: -1;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+
+
+.intro {
+    position: fixed;
+    background-image: linear-gradient(to top, black, #08368a 0%, black 100%);
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    padding: 20px;
+}
+
+.intro * {
+    opacity: 0;
+}
+
+.intro[visible] * {
+    animation: fade-in 2.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.intro.active {
+    animation: fade-out 1s 1;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+}
+
+.intro h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    text-shadow: 0px 0px 15px #fff;
+    font-weight: 300;
+}
+
+.intro p {
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 32px;
+    max-width: 400px;
+}
+
+.intro h3 {
+    font-size: 16px;
+    font-weight: 100;
+}
+
+.blank.active {
+    position: fixed;
+    background-color: #FFF;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    animation: fade-in 5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.blank.fade {
+    position: fixed;
+    background-color: #FFF;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    animation: fade-out 3s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes fade-out {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fade-in {
+    0%   { opacity: 0; }
+    40%  { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+svg {
+    display: none;
+}
+
+
+
+
+.difficulty {
+    display: flex;
+}
+
+.difficulty > span {
+    background-size: cover;
+    height: 44px;
+    width: 44px;
+    margin: 24px 16px;
+    cursor: pointer;
+    position: relative;
+}
+
+.difficulty > span::after {
+    display: block;
+    position: absolute;
+    top: 54px;
+    width: 100%;
+    font-family: 'Indie Flower', cursive;
+}
+
+.easy {
+    background-image: url('../img/easy.png');
+}
+
+.easy::after {
+    content: "Facile";
+    content: "Easy";
+    color: #4eb1aa;
+}
+
+.medium {
+    background-image: url('../img/medium.png');
+}
+
+.medium::after {
+    content: "Medio";
+    content: "Medium";
+    color: #4eb15e;
+}
+
+.hard {
+    background-image: url('../img/hard.png');
+}
+
+.hard::after {
+    content: "Difficile";
+    content: "Hard";
+    color: #b1834e;
+}
+
+.crazy {
+    background-image: url('../img/crazy.png');
+}
+
+.crazy::after {
+    content: "Impossibile";
+    content: "Crazy";
+    color: #b14e4e;
+}
