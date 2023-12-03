@@ -193,25 +193,21 @@ svg {
 }
 
 .intro .difficulty .easy::after {
-    content: "Facile";
     content: "Easy";
     color: #4eb1aa;
 }
 
 .intro .difficulty .medium::after {
-    content: "Medio";
     content: "Medium";
     color: #4eb15e;
 }
 
 .intro .difficulty .hard::after {
-    content: "Difficile";
     content: "Hard";
     color: #b1834e;
 }
 
 .intro .difficulty .crazy::after {
-    content: "Impossibile";
     content: "Crazy";
     color: #b14e4e;
 }

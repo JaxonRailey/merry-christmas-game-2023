@@ -157,6 +157,7 @@ function startGame() {
                 console.log('Hai vinto usando '+ clicks + ' mosse!');
                 $one('.blank.active:not(.fade)').addEventListener('animationend', () => {
                     console.log('animazione finita');
+                    $one('.game h1').remove();
                     $one('.game .container').innerHTML = '';
                     $one('svg').style.display = 'block';
                     $one('.blank').classList.remove('active');
