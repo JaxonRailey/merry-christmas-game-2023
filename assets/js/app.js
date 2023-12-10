@@ -47,9 +47,9 @@ $all('.intro span').forEach(smile => {
 
         switch (level) {
             case 'easy':   totalElems = 5; controls = 3; break;
-            case 'medium': totalElems = 6; controls = 2; break;
+            case 'medium': totalElems = 6; controls = 3; break;
             case 'hard':   totalElems = 7; controls = 3; break;
-            case 'crazy':  totalElems = 8; controls = 2; break;
+            case 'crazy':  totalElems = 9; controls = 3; break;
         }
 
         switches = createElems(totalElems, 'switches', '.container');
@@ -162,11 +162,11 @@ function startGame() {
                 $one('.blank').classList.add('active');
                 console.warn('Hai vinto usando', clicks, 'mosse!');
                 $one('.blank.active:not(.fade)').addEventListener('animationend', () => {
-                    $one('.game h1').innerHTML = '';
                     $one('.game .container').innerHTML = '';
                     $one('svg').style.display = 'block';
                     $one('.blank').classList  = 'blank fade';
                     wishSound.play();
+                    christmas.setSpeed(0.5);
                     christmas.play();
                 });
             }

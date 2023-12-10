@@ -27,7 +27,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     font-family: 'Indie Flower', cursive;
     font-family: 'Playpen Sans', cursive;
 }
@@ -54,7 +54,19 @@ svg {
     top: 0;
     right: 0;
 }
+
+.game h3 {
+    font-weight: 200;
+    font-size: 18px;
+    margin-bottom: 2px;
 }
+
+.game h4 {
+    font-weight: 100;
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
 
 .container {
     text-align: center;
@@ -113,10 +125,10 @@ svg {
 }
 
 .intro {
-    position: fixed;
+    position: absolute;
     background-image: radial-gradient(circle at center, #2d61bf 0%, black 100%);
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
     color: white;
     z-index: 3;
     display: flex;
@@ -124,8 +136,7 @@ svg {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    backdrop-filter: blur(6px);
-    padding: 20px;
+    padding: 20px 20px 30px;
 }
 
 .intro * {
@@ -142,6 +153,7 @@ svg {
     animation: fade-out 1s 1;
     animation-fill-mode: forwards;
     pointer-events: none;
+    position: fixed;
 }
 
 .intro h1 {
