@@ -58,6 +58,15 @@ $all('.intro span').forEach(smile => {
         switchesElems = $all('.switches > div');
         lightsElems   = $all('.lights > div');
 
+        $one('.easter-egg').addEventListener('click', (e) => {
+            if (e.detail === 3) {
+                lights.fill(false);
+                switches.fill(false);
+                updateUI();
+                checkSolution(switchMap).forEach((elem, index) => elem && (switchesElems[index].click(), updateUI()));
+            }
+        });
+
         startGame();
     });
 });
