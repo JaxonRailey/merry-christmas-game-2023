@@ -53,6 +53,32 @@ h2 span {
 
 svg {
     display: none;
+    max-height: 70%;
+}
+
+.retry {
+    width: 44px;
+    height: 44px;
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    animation: fade-out linear 5s;
+    animation-fill-mode: backwards;
+    animation-direction: reverse;
+    background-color: red;
+    background: url('../img/retry.png');
+    background-size: cover;
+    display: none;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.retry::after {
+    content: "rigioca";
+    position: absolute;
+    top: 44px;
+    font-size: 12px;
+    font-weight: 200;
 }
 
 .game {

@@ -169,6 +169,8 @@ function startGame() {
                     christmas.setSpeed(0.5);
                     christmas.play();
                     $one('h2').style.display = 'block';
+                    setTimeout(() => $one('.easter-egg').remove(), 2000);
+                    setTimeout(() => $one('.retry').style.display = 'block', 5000);
                 });
             }
         });
@@ -176,6 +178,8 @@ function startGame() {
 
     updateUI();
 }
+
+$one('.retry').addEventListener('click', () => location.href = '');
 
 function updateUI() {
 
