@@ -168,6 +168,7 @@ function startGame() {
                     wishSound.play();
                     christmas.setSpeed(0.5);
                     christmas.play();
+                    $one('h2').style.display = 'block';
                 });
             }
         });
