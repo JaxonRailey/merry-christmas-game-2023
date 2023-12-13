@@ -63,7 +63,7 @@
         document.querySelector('[type="text"]').addEventListener('keyup', () => {
             name    = document.querySelector('[type="text"]').value;
             encoded = window.btoa(name);
-            fullurl = baseUrl + '?name=' + encoded;
+            fullurl = baseUrl + '?user=' + encoded;
             document.querySelector('a').innerHTML = fullurl;
             document.querySelector('a').href      = fullurl;
         });
