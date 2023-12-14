@@ -15,7 +15,7 @@ const christmas     = bodymovin.loadAnimation({
     autoplay: false
 });
 
-let user          = params.get('user');
+let user          = params.get('user') || params.get('u');
 let level         = null;
 let winner        = false;
 let clicks        = 0;
