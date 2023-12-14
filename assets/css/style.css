@@ -208,12 +208,20 @@ svg {
     font-weight: 300;
 }
 
-.intro .preloading span:first-child {
+.intro .preloading span:nth-child(1) {
     background-image: url('../img/switch_on.png');
 }
 
-.intro .preloading span:last-child {
+.intro .preloading span:nth-child(2) {
     background-image: url('../img/light_on.png');
+}
+
+.intro .preloading span:nth-child(3) {
+    background-image: url('../img/light_off.png');
+}
+
+.intro .preloading span:nth-child(4) {
+    background-image: url('../img/light_off.png');
 }
 
 .intro p {
