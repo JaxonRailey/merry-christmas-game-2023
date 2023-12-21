@@ -161,6 +161,7 @@ function startGame() {
                 winnerSound.play();
                 $one('.blank').classList.add('active');
                 console.warn('Hai vinto usando', clicks, 'mosse!');
+                $one('.easter-egg').remove();
                 $one('.blank.active:not(.fade)').addEventListener('animationend', () => {
                     $one('.game .container').innerHTML = '';
                     $one('svg').style.display = 'block';
@@ -171,10 +172,6 @@ function startGame() {
                     christmas.play();
                     $one('h2').style.display = 'block';
                     setTimeout(() => $one('.retry').style.display = 'block', 5000);
-
-                    if ($one('.easter-egg').length) {
-                        setTimeout(() => $one('.easter-egg').remove(), 2000);
-                    }
                 });
             }
         });
