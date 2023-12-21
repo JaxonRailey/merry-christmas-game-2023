@@ -165,12 +165,16 @@ function startGame() {
                     $one('.game .container').innerHTML = '';
                     $one('svg').style.display = 'block';
                     $one('.blank').classList  = 'blank fade';
+                    greetings();
                     wishSound.play();
                     christmas.setSpeed(0.5);
                     christmas.play();
                     $one('h2').style.display = 'block';
-                    setTimeout(() => $one('.easter-egg').remove(), 2000);
                     setTimeout(() => $one('.retry').style.display = 'block', 5000);
+
+                    if ($one('.easter-egg').length) {
+                        setTimeout(() => $one('.easter-egg').remove(), 2000);
+                    }
                 });
             }
         });
